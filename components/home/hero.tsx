@@ -1,153 +1,62 @@
-"use client";
-
-import { motion } from "framer-motion";
+import DashboardPreview from "./dashboard-preview";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Play, ShieldCheck, Tv, Globe, Users } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 
 export default function Hero() {
   return (
-    <section className="relative overflow-hidden border-b border-border">
-      {/* Background */}
-      <div className="absolute inset-0 bg-background" />
+    <section className="relative overflow-hidden">
+      <div className="mx-auto grid min-h-[90vh] max-w-7xl items-center gap-20 px-6 lg:grid-cols-2">
+        {/* LEFT */}
 
-      {/* Blue Glow */}
-      <div className="absolute left-1/2 top-20 h-96 w-96 -translate-x-1/2 rounded-full bg-blue-600/20 blur-[140px]" />
-
-      {/* Purple Glow */}
-      <div className="absolute right-20 bottom-0 h-80 w-80 rounded-full bg-violet-600/20 blur-[140px]" />
-
-      <div className="relative mx-auto max-w-7xl px-6 py-28 text-center">
-        {/* Badge */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-        >
-          <span className="rounded-full border border-blue-500/30 bg-blue-500/10 px-5 py-2 text-sm font-medium text-blue-400">
-            ⭐ Trusted by thousands of customers
+        <div>
+          <span className="rounded-full bg-primary/10 px-4 py-2 text-sm text-primary">
+            ⭐ Trusted by thousands
           </span>
-        </motion.div>
 
-        {/* Title */}
-        <motion.h1
-          initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2 }}
-          className="mx-auto mt-8 max-w-4xl text-5xl font-black leading-tight tracking-tight md:text-7xl"
-        >
-          Premium Entertainment
-          <br />
-          <span className="bg-gradient-to-r from-blue-400 to-violet-500 bg-clip-text text-transparent">
-            For Every Screen.
-          </span>
-        </motion.h1>
+          <h1 className="mt-8 text-6xl font-black leading-tight lg:text-7xl">
+            Premium Entertainment
+            <span className="block text-primary">For Every Screen.</span>
+          </h1>
 
-        {/* Subtitle */}
-        <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.4 }}
-          className="mx-auto mt-8 max-w-2xl text-lg leading-8 text-muted-foreground"
-        >
-          Enjoy fast activation, premium streaming quality, and support for
-          Smart TVs, phones, tablets, Fire TV, Android, Apple devices, and more.
-        </motion.p>
+          <p className="mt-8 max-w-xl text-lg text-muted-foreground">
+            Watch on Smart TVs, Android, Apple devices, tablets and computers
+            with a premium experience.
+          </p>
 
-        {/* Buttons */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.6 }}
-          className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row"
-        >
-          <Button size="lg" className="gap-2 rounded-xl">
-            Start Free Trial
-            <ArrowRight size={18} />
-          </Button>
+          <div className="mt-10 flex gap-4">
+            <Button size="lg">
+              Start Now
+              <ArrowRight className="ml-2 h-4 w-4" />
+            </Button>
 
-          <Button variant="outline" size="lg" className="gap-2 rounded-xl">
-            <Play size={18} />
-            View Plans
-          </Button>
-        </motion.div>
+            <Button variant="outline" size="lg">
+              View Plans
+            </Button>
+          </div>
 
-        {/* Statistics */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.8 }}
-          className="mt-16 grid grid-cols-2 gap-6 md:grid-cols-4"
-        >
-          <Stat
-            icon={<Users size={22} />}
-            value="50K+"
-            label="Happy Customers"
-          />
-          <Stat icon={<ShieldCheck size={22} />} value="99.9%" label="Uptime" />
-          <Stat icon={<Tv size={22} />} value="20+" label="Supported Devices" />
-          <Stat icon={<Globe size={22} />} value="120+" label="Countries" />
-        </motion.div>
+          <div className="mt-14 flex gap-10">
+            <Stat number="50K+" text="Customers" />
 
-        {/* Feature Cards */}
-        <div className="mt-20 grid gap-6 md:grid-cols-3">
-          <FeatureCard
-            icon={<ShieldCheck className="h-10 w-10 text-blue-500" />}
-            title="Secure Platform"
-            text="Reliable service with enterprise-grade infrastructure."
-          />
+            <Stat number="99.9%" text="Uptime" />
 
-          <FeatureCard
-            icon={<Tv className="h-10 w-10 text-violet-500" />}
-            title="Multi Device"
-            text="Watch on Smart TVs, phones, tablets and computers."
-          />
-
-          <FeatureCard
-            icon={<Play className="h-10 w-10 text-emerald-500" />}
-            title="Instant Access"
-            text="Activate your subscription within minutes."
-          />
+            <Stat number="24/7" text="Support" />
+          </div>
         </div>
+
+        {/* RIGHT */}
+
+        <DashboardPreview />
       </div>
     </section>
   );
 }
 
-function Stat({
-  icon,
-  value,
-  label,
-}: {
-  icon: React.ReactNode;
-  value: string;
-  label: string;
-}) {
+function Stat({ number, text }: { number: string; text: string }) {
   return (
-    <div className="rounded-2xl border border-border bg-card p-6">
-      <div className="mb-3 flex justify-center text-primary">{icon}</div>
+    <div>
+      <h3 className="text-3xl font-bold">{number}</h3>
 
-      <h3 className="text-3xl font-bold">{value}</h3>
-
-      <p className="mt-2 text-sm text-muted-foreground">{label}</p>
-    </div>
-  );
-}
-
-function FeatureCard({
-  icon,
-  title,
-  text,
-}: {
-  icon: React.ReactNode;
-  title: string;
-  text: string;
-}) {
-  return (
-    <div className="group rounded-3xl border border-border bg-card p-8 transition-all duration-300 hover:-translate-y-2 hover:border-blue-500/40 hover:shadow-2xl hover:shadow-blue-500/10">
-      <div className="mb-6 flex justify-center">{icon}</div>
-
-      <h3 className="text-xl font-semibold">{title}</h3>
-
-      <p className="mt-4 text-muted-foreground">{text}</p>
+      <p className="text-muted-foreground">{text}</p>
     </div>
   );
 }
